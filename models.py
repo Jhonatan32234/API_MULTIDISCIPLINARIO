@@ -21,7 +21,7 @@ class Texturas(Base):
     __tablename__ = "texturas"
     __table_args__ =  {"schema":"multidisciplinario"}
 
-    idtexura = Column(Integer,primary_key=True,index=True)
+    idtextura = Column(Integer,primary_key=True,index=True)
     archivotextura = Column(String)
 
     niveltexturas = relationship("Nivel",back_populates="textura")
@@ -29,7 +29,7 @@ class Texturas(Base):
     paredtextura = relationship("Pared",back_populates="textura")
     terminaltextura = relationship("Terminal",back_populates="textura")
     puentetextura = relationship("Puente",back_populates="textura")
-    bloquecodigotextura = relationship("bloquecodigo",back_populates="textura")
+    bloquecodigotextura = relationship("bloqueCodigo",back_populates="textura")
 
 
 class Personaje(Base):
@@ -42,7 +42,7 @@ class Personaje(Base):
     dimensionx = Column(Integer)
     dimensiony = Column(Integer)
 
-    idtextura = Column(Integer,ForeignKey("multidisciplinario.texturas.idtexura"))
+    idtextura = Column(Integer,ForeignKey("multidisciplinario.texturas.idtextura"))
     textura = relationship("Texturas",back_populates="personajetextura")
 
 
@@ -56,7 +56,7 @@ class Pared(Base):
     ladoy1 = Column(Integer)
     ladoy2 = Column(Integer)
 
-    idtextura = Column(Integer,ForeignKey("multidisciplinario.texturas.idtexura"))
+    idtextura = Column(Integer,ForeignKey("multidisciplinario.texturas.idtextura"))
     textura = relationship("Texturas",back_populates="paredtextura")
 
 
@@ -71,12 +71,12 @@ class Terminal(Base):
     ladoy1 = Column(Integer)
     ladoy2 = Column(Integer)
 
-    idtextura = Column(Integer,ForeignKey("multidisciplinario.texturas.idtexura"))
+    idtextura = Column(Integer,ForeignKey("multidisciplinario.texturas.idtextura"))
     idpuente = Column(Integer,ForeignKey("multidisciplinario.puente.idpuente"))
 
     textura = relationship("Texturas",back_populates="terminaltextura")
     puente = relationship("Puente",back_populates="terminal")
-    tmcodigo = relationship("terminalcodigo",back_populates="terminal")
+    tmcodigo = relationship("terminalCodigo",back_populates="terminal")
     
 
 
@@ -89,7 +89,7 @@ class terminalCodigo(Base):
     idcodigo = Column(Integer,ForeignKey("multidisciplinario.bloquecodigo.idbloquecodigo"))
 
     terminal = relationship("Terminal",back_populates="tmcodigo")
-    codigo = relationship("bloquecodigo",back_populates="tmcodigo")
+    codigo = relationship("bloqueCodigo",back_populates="tmcodigo")
 
 
 class Puente(Base):
@@ -102,8 +102,8 @@ class Puente(Base):
     ladoy1 = Column(Integer)
     ladoy2 = Column(Integer)
 
-    idtextura = Column(Integer,ForeignKey("multidisciplinario.texturas.idtexura"))
-    textura = relationship("Textura",back_populates="puentetextura")
+    idtextura = Column(Integer,ForeignKey("multidisciplinario.texturas.idtextura"))
+    textura = relationship("Texturas",back_populates="puentetextura")
     terminal = relationship("Terminal",back_populates="puente")
 
 
@@ -117,10 +117,10 @@ class bloqueCodigo(Base):
     ladox2 = Column(Integer)
     ladoy1 = Column(Integer)
     ladoy2 = Column(Integer)
-    idtextura = Column(Integer,ForeignKey("multidisciplinario.texturas.idtexura"))
+    idtextura = Column(Integer,ForeignKey("multidisciplinario.texturas.idtextura"))
     
-    textura = relationship("Textura",back_populates="bloquecodigotextura")
-    tmcodigo = relationship("terminalcodigo",back_populates="codigo")
+    textura = relationship("Texturas",back_populates="bloquecodigotextura")
+    tmcodigo = relationship("terminalCodigo",back_populates="codigo")
 
 
 
