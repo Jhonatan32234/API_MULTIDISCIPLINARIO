@@ -93,7 +93,7 @@ class terminalCodigo(Base):
 
 
 class Puente(Base):
-    __tablename__ = "Puente"
+    __tablename__ = "puente"
     __table_args__ = {"schema":"multidisciplinario"}
 
     idpuente = Column(Integer,primary_key=True,index=True)
