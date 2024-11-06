@@ -117,7 +117,8 @@ class bloqueCodigo(Base):
     ladox2 = Column(Integer)
     ladoy1 = Column(Integer)
     ladoy2 = Column(Integer)
-
+    idtextura = Column(Integer,ForeignKey("multidisciplinario.texturas.idtexura"))
+    
     textura = relationship("Textura",back_populates="bloquecodigotextura")
     tmcodigo = relationship("terminalcodigo",back_populates="codigo")
 
