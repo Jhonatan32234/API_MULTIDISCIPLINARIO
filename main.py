@@ -10,6 +10,11 @@ from routes.ejemplos.proyectoAsignado import router as proyectos_asignados
 from routes.ejemplos.jefe import router as jefes_router"""
 
 from routes.texturas import router as texturas_router
+from routes.terminal import router as terminal_router
+from routes.bloqueCodigo import router as bloquecodigo_router
+from routes.terminalCodigo import router as terminalcodigo_router
+
+
 
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -27,6 +32,13 @@ app.add_middleware(
 models.Base.metadata.create_all(bind=engine)
 
 app.include_router(texturas_router,prefix="/texturas",tags=["Texturas"])
+app.include_router(terminal_router,prefix="/terminal",tags=["Terminal"])
+app.include_router(bloquecodigo_router,prefix="/bloqueCodigo",tags=["bloqueCodigo"])
+app.include_router(terminalcodigo_router,prefix="/terminalCodigo",tags=["terminalCodigo"])
+
+
+
+
 
 
 """"
