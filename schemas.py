@@ -7,7 +7,8 @@ class bloqueCodigoCreate(BaseModel):
     ladox2: int
     ladoy1: int
     ladoy2: int
-    idtextura: int
+    textura: str
+    idnivel:int
 
 class bloqueCodigoResponse(bloqueCodigoCreate):
     idbloquecodigo: int
@@ -18,20 +19,11 @@ class bloqueCodigoResponse(bloqueCodigoCreate):
 class nivelCreate(BaseModel):
     nombrenivel: str
     tiempolimite: int
-    idtextura: int
+    textura: str
 
 class nivelResponse(nivelCreate):
     idnivel: int
     
-    class Config:
-        orm_mode = True
-
-class texturasCreate(BaseModel):
-    archivotextura: str
-
-class texturaResponse(texturasCreate):
-    idtextura: int
-
     class Config:
         orm_mode = True
 
@@ -40,7 +32,8 @@ class personajeCreate(BaseModel):
     posiciony: int
     dimensionx: int
     dimensiony: int
-    idtextura: int
+    textura: str
+    idnivel:int
 
 class personajeResponse(personajeCreate):
     idpersonaje: int
@@ -53,7 +46,8 @@ class paredCreate(BaseModel):
     ladox2: int
     ladoy1: int 
     ladoy2: int
-    idtextura: int
+    textura: str
+    idnivel:int
 
 class paredResponse(paredCreate):
     idpared: int
@@ -66,8 +60,9 @@ class terminalCreate(BaseModel):
     ladox2: int
     ladoy1: int 
     ladoy2: int
-    idtextura: int
+    textura: str
     idpuente: int
+    idnivel:int
 
 class terminalResponse(terminalCreate):
     idterminal: int
@@ -90,7 +85,8 @@ class puenteCreate(BaseModel):
     ladox2: int
     ladoy1: int 
     ladoy2: int
-    idtextura: int
+    textura: str
+    idnivel:int
 
 class puenteResponse(puenteCreate):
     idpuente: int

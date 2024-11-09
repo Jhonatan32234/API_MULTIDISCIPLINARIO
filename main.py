@@ -9,7 +9,13 @@ from routes.ejemplos.proyecto import router as proyectos_router
 from routes.ejemplos.proyectoAsignado import router as proyectos_asignados
 from routes.ejemplos.jefe import router as jefes_router"""
 
-from routes.texturas import router as texturas_router
+from routes.terminal import router as terminal_router
+from routes.bloqueCodigo import router as bloquecodigo_router
+from routes.terminalCodigo import router as terminalcodigo_router
+from routes.nivel import router as nivel_router
+from routes.pared import router as pared_router
+from routes.personaje import router as personaje_router
+from routes.puente import router as puente_router
 
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -26,7 +32,17 @@ app.add_middleware(
 
 models.Base.metadata.create_all(bind=engine)
 
-app.include_router(texturas_router,prefix="/texturas",tags=["Texturas"])
+app.include_router(nivel_router,prefix="/nivel",tags=["Nivel"])
+app.include_router(pared_router,prefix="/pared",tags=["Pared"])
+app.include_router(personaje_router,prefix="/personaje",tags=["Personaje"])
+app.include_router(puente_router,prefix="/puente",tags=["Puente"])
+app.include_router(terminal_router,prefix="/terminal",tags=["Terminal"])
+app.include_router(bloquecodigo_router,prefix="/bloqueCodigo",tags=["bloqueCodigo"])
+app.include_router(terminalcodigo_router,prefix="/terminalCodigo",tags=["terminalCodigo"])
+
+
+
+
 
 
 """"
