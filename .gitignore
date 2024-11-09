@@ -1,17 +1,36 @@
-# Ignorar entorno virtual
+
+# Ignorar entornos virtuales de Python en cualquier ubicación
 venv/
 .env/
 env/
+*.env
+
 # Ignorar archivos de compilación de Python
 __pycache__/
-*.pyc
+*.py[cod]
 *.pyo
+*.pyd
+*.pdb
 
-# Ignorar archivos de configuración de IDEs (como VSCode)
+# Ignorar configuraciones y archivos de cache de IDEs y editores
 .vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
 
-# Ignorar archivos de logs
+# Ignorar archivos de logs y registros de depuración
 *.log
+*.log.*
+logs/
+debug.log
 
-# Ignorar archivos de bases de datos
+# Ignorar archivos de bases de datos y datos temporales
 *.sqlite3
+*.db
+*.db-journal
+*.dat
+*.bak
+
+# Ignorar archivos generados por sistemas operativos
+.DS_Store
+Thumbs.db
