@@ -26,6 +26,10 @@ class usuarioResponse(usuarioCreate):
     class Config:
         orm_mode = True
 
+class LoginRequest(BaseModel):
+    nombreusuario: str
+    contrasena: str
+
 class configuracionCreate(BaseModel):
     musica:bool
     fxsounds:bool

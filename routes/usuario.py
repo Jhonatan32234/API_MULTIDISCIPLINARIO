@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from typing import List
 from database import get_db
 from models import Usuario
-from schemas import usuarioCreate, usuarioResponse
+from schemas import usuarioCreate, usuarioResponse, LoginRequest
 
 router = APIRouter()
 
@@ -54,10 +54,10 @@ def delete_usuario(id_usuario: int, db: Session = Depends(get_db)):
 
 
 @router.post("/login", response_model=usuarioResponse)
-def login(nombreusuario: str, contrasena: str, db: Session = Depends(get_db)):
+def login(request: LoginRequest, db: Session = Depends(get_db)):
     usuario = db.query(Usuario).filter(
-        Usuario.nombreusuario == nombreusuario,
-        Usuario.contrasena == contrasena
+        Usuario.nombreusuario == request.nombreusuario,
+        Usuario.contrasena == request.contrasena
     ).first()
     
     if usuario is None:
