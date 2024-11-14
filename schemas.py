@@ -15,7 +15,7 @@ class nivelResponse(nivelCreate):
         orm_mode = True
 
 class usuarioCreate(BaseModel):
-    nombreusuario: int
+    nombreusuario: str
     contrasena:str
     idconfiguracion:int
 
