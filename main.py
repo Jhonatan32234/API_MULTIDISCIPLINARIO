@@ -9,13 +9,12 @@ from routes.ejemplos.proyecto import router as proyectos_router
 from routes.ejemplos.proyectoAsignado import router as proyectos_asignados
 from routes.ejemplos.jefe import router as jefes_router"""
 
-from routes.terminal import router as terminal_router
-from routes.bloqueCodigo import router as bloquecodigo_router
-from routes.terminalCodigo import router as terminalcodigo_router
 from routes.nivel import router as nivel_router
-from routes.pared import router as pared_router
-from routes.personaje import router as personaje_router
-from routes.puente import router as puente_router
+from routes.configuracion import router as configuracion_router
+from routes.progreso import router as progreso_router
+from routes.usuario import router as usuario_router
+
+
 
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -33,21 +32,7 @@ app.add_middleware(
 models.Base.metadata.create_all(bind=engine)
 
 app.include_router(nivel_router,prefix="/nivel",tags=["Nivel"])
-app.include_router(pared_router,prefix="/pared",tags=["Pared"])
-app.include_router(personaje_router,prefix="/personaje",tags=["Personaje"])
-app.include_router(puente_router,prefix="/puente",tags=["Puente"])
-app.include_router(terminal_router,prefix="/terminal",tags=["Terminal"])
-app.include_router(bloquecodigo_router,prefix="/bloqueCodigo",tags=["bloqueCodigo"])
-app.include_router(terminalcodigo_router,prefix="/terminalCodigo",tags=["terminalCodigo"])
+app.include_router(usuario_router,prefix="/usuario",tags=["Usuario"])
+app.include_router(progreso_router,prefix="/progreso",tags=["Progreso"])
+app.include_router(configuracion_router,prefix="/configuracion",tags=["Configuracion"])
 
-
-
-
-
-
-""""
-app.include_router(materias_router,prefix="/materias",tags=["Materias"])
-app.include_router(trabajadores_router,prefix="/trabajadores",tags=["Trabajadores"])
-app.include_router(jefes_router,prefix="/jefe",tags=["Jefe de Proyecto"])
-app.include_router(proyectos_asignados,prefix="/proyectos_asignados",tags=["Proyectos Asignados"])
-app.include_router(proyectos_router,prefix="/proyectos",tags=["Proyectos"])"""
