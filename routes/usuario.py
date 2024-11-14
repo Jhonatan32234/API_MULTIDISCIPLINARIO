@@ -14,7 +14,7 @@ def get_usuario(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     usuario = db.query(Usuario).offset(skip).limit(limit).all()
     return usuario
 
-@router.post("/create", response_model=usuarioResponse)
+@router.post("/register", response_model=usuarioResponse)
 def create_usuario(usuario: usuarioCreate, db: Session = Depends(get_db)):
     new_usuario = Usuario(**usuario.dict())
     db.add(new_usuario)
@@ -50,4 +50,17 @@ def delete_usuario(id_usuario: int, db: Session = Depends(get_db)):
     
     db.delete(usuario)
     db.commit()
+    return usuario
+
+
+@router.post("/login", response_model=usuarioResponse)
+def login(nombreusuario: str, contrasena: str, db: Session = Depends(get_db)):
+    usuario = db.query(Usuario).filter(
+        Usuario.nombreusuario == nombreusuario,
+        Usuario.contrasena == contrasena
+    ).first()
+    
+    if usuario is None:
+        raise HTTPException(status_code=404, detail="Usuario o contraseña incorrectos")
+    
     return usuario
