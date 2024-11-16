@@ -61,7 +61,7 @@ def get_progreso(id_nivel: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Progreso no encontrado")
     return progreso
 
-@router.get("/{id_usuario}", response_model=progresoResponse)
+@router.get("/usuario/{id_usuario}", response_model=progresoResponse)
 def get_progreso(id_usuario: int, db: Session = Depends(get_db)):
     progreso = db.query(Progreso).filter(Progreso.idusuario == id_usuario).first()
     if progreso is None:

@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
 from database import get_db
-from models import Nivel
+from models import Nivel, Progreso
 from schemas import nivelCreate, nivelResponse
 
 router = APIRouter()
@@ -51,3 +51,28 @@ def delete_nivel(id_nivel: int, db: Session = Depends(get_db)):
     db.delete(nivel)
     db.commit()
     return nivel
+
+
+@router.get("/niveles_usuario/{id_usuario}", response_model=List[dict])
+def get_niveles_con_progreso(id_usuario: int, db: Session = Depends(get_db)):
+    # Obtener todos los niveles
+    niveles = db.query(Nivel).all()
+    if not niveles:
+        raise HTTPException(status_code=404, detail="No se encontraron niveles")
+
+    # Consultar los progresos del usuario
+    progresos_usuario = db.query(Progreso).filter(Progreso.idusuario == id_usuario).all()
+    niveles_completados = {progreso.idnivel for progreso in progresos_usuario}
+
+    # Construir respuesta con el estado de progreso
+    resultado = [
+        {
+            "idnivel": nivel.idnivel,
+            "nombrenivel": nivel.nombrenivel,
+            "textura": nivel.textura,
+            "desbloqueado": nivel.idnivel in niveles_completados
+        }
+        for nivel in niveles
+    ]
+
+    return resultado
