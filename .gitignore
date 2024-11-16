@@ -1,4 +1,3 @@
-
 # Ignorar entornos virtuales de Python en cualquier ubicación
 venv/
 .env/
