@@ -51,3 +51,19 @@ def delete_progreso(id_progreso: int, db: Session = Depends(get_db)):
     db.delete(progreso)
     db.commit()
     return progreso
+
+
+
+@router.get("/nivel/{id_nivel}", response_model=progresoResponse)
+def get_progreso(id_nivel: int, db: Session = Depends(get_db)):
+    progreso = db.query(Progreso).filter(Progreso.idnivel == id_nivel).first()
+    if progreso is None:
+        raise HTTPException(status_code=404, detail="Progreso no encontrado")
+    return progreso
+
+@router.get("/{id_usuario}", response_model=progresoResponse)
+def get_progreso(id_usuario: int, db: Session = Depends(get_db)):
+    progreso = db.query(Progreso).filter(Progreso.idusuario == id_usuario).first()
+    if progreso is None:
+        raise HTTPException(status_code=404, detail="Progreso no encontrado")
+    return progreso

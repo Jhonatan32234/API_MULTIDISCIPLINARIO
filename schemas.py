@@ -17,7 +17,7 @@ class nivelResponse(nivelCreate):
 class usuarioCreate(BaseModel):
     nombreusuario: str
     contrasena:str
-    idconfiguracion:int
+    idconfiguracion:Optional[int] = None
 
 
 class usuarioResponse(usuarioCreate):
@@ -42,8 +42,8 @@ class configuracionResponse(configuracionCreate):
         orm_mode = True
 
 class progresoCreate(BaseModel):
-    idnivel:int
-    idusuario:int
+    idnivel:Optional[int] = None
+    idusuario:Optional[int] = None
 
 class progresoResponse(progresoCreate):
     idprogreso:int

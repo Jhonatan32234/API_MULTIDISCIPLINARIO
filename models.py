@@ -12,7 +12,6 @@ class Nivel(Base):
     idnivel = Column(Integer,primary_key=True,index=True)
     nombrenivel = Column(String,index=True)
     textura = Column(String)
-    idconfiguracion = Column(Integer,ForeignKey("codebox.configuracion.idconfiguracion"))
 
     progreso = relationship("Progreso",back_populates="nivel")
 
@@ -24,7 +23,7 @@ class Usuario(Base):
     idusuario= Column(Integer,primary_key=True,index=True)
     nombreusuario = Column(String)
     contrasena = Column(String)
-    idconfiguracion = Column(Integer,ForeignKey("codebox.configuracion.idconfiguracion"))
+    idconfiguracion = Column(Integer,ForeignKey("codebox.configuracion.idconfiguracion"),nullable=True)
 
     progreso = relationship("Progreso",back_populates="usuario")
     configuracion = relationship("Configuracion",back_populates="usuario")
@@ -36,8 +35,8 @@ class Progreso(Base):
     __table_args__ = {"schema":"codebox"}
 
     idprogreso= Column(Integer,primary_key=True,index=True)
-    idnivel = Column(Integer,ForeignKey("codebox.nivel.idnivel"))
-    idusuario = Column(Integer,ForeignKey("codebox.usuario.idusuario"))
+    idnivel = Column(Integer,ForeignKey("codebox.nivel.idnivel"),nullable=True)
+    idusuario = Column(Integer,ForeignKey("codebox.usuario.idusuario"),nullable=True)
 
     usuario = relationship("Usuario",back_populates="progreso")
     nivel = relationship("Nivel",back_populates="progreso")
