@@ -8,11 +8,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-DATABASE_URL = os.getenv("DATABASE_POSTGRESQL_URL")
+#DATABASE_URL = os.getenv("DATABASE_POSTGRESQL_URL")
 
 
 
-#DATABASE_URL = "postgresql://postgres:@localhost:5432/proyectos?options=-c%20client_encoding=WIN1252"
+DATABASE_URL = "postgresql://postgres:@localhost:5432/proyectos?options=-c%20client_encoding=WIN1252"
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

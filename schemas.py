@@ -18,6 +18,7 @@ class usuarioCreate(BaseModel):
     nombreusuario: str
     contrasena:str
     idconfiguracion:Optional[int] = None
+    rol:str = "usuario"
 
 
 class usuarioResponse(usuarioCreate):
