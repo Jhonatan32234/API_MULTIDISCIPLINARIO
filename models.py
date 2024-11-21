@@ -24,6 +24,7 @@ class Usuario(Base):
     nombreusuario = Column(String)
     contrasena = Column(String)
     idconfiguracion = Column(Integer,ForeignKey("codebox.configuracion.idconfiguracion"),nullable=True)
+    rol = Column(String,default="usuario")
 
     progreso = relationship("Progreso",back_populates="usuario")
     configuracion = relationship("Configuracion",back_populates="usuario")
