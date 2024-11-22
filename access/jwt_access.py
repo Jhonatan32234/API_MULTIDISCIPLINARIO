@@ -41,13 +41,14 @@ def get_token(payload: dict = Depends(validate_jwt_token)):
     return payload 
 
 
-def verify_role(required_role: str):
+
+def verify_role(required_roles: list[str]):
     def role_checker(payload: dict = Depends(get_token)):
         token_role = payload.get("rol")
-        if token_role != required_role:
+        if token_role not in required_roles:
             raise HTTPException(
                 status_code=403,
-                detail=f"No tienes permiso para esta acción, se requiere rol: {required_role}"
+                detail=f"No tienes permiso para esta acción. Se requiere uno de los siguientes roles: {', '.join(required_roles)}"
             )
         return payload
     return Depends(role_checker)
