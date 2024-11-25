@@ -70,3 +70,35 @@ def delete_terminalcodigo(
         raise HTTPException(status_code=404, detail="TerminalCodigo no encontrado")
     terminales_codigo_collection.delete_one({"_id": ObjectId(id_terminalcodigo)})
     return terminalcodigo
+
+
+
+
+#obtener un terminalcodigo especifico a base del idterminal
+@router.get("/terminal/{idterminal}", response_model=dict)
+def get_terminal(
+    idterminal: int,
+    skip: int = 0, 
+    limit: int = 100,
+    user: dict = verify_role(["admin", "usuario"])
+):
+    terminalescodigo = list(terminales_codigo_collection.find({"idterminal": idterminal}).skip(skip).limit(limit))
+
+    terminalescodigo_con_ids = [{**terminalcodigo, "_id": str(terminalcodigo["_id"])} for terminalcodigo in terminalescodigo]
+
+    return {"data": terminalescodigo_con_ids}
+
+
+#obtener un terminalcodigo especifico a base del idcodigo
+@router.get("/codigo/{idcodigo}", response_model=dict)
+def get_terminal(
+    idcodigo: int,
+    skip: int = 0, 
+    limit: int = 100,
+    user: dict = verify_role(["admin", "usuario"])
+):
+    terminalescodigo = list(terminales_codigo_collection.find({"idbloquecodigo": idcodigo}).skip(skip).limit(limit))
+
+    terminalescodigo_con_ids = [{**terminalcodigo, "_id": str(terminalcodigo["_id"])} for terminalcodigo in terminalescodigo]
+
+    return {"data": terminalescodigo_con_ids}
