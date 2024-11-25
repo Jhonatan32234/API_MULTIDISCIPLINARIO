@@ -70,3 +70,17 @@ def delete_puente(
         raise HTTPException(status_code=404, detail="Puente no encontrado")
     puentes_collection.delete_one({"_id": ObjectId(id_puente)})
     return puente
+
+#obtener un puente especifico a base del idnivel
+@router.get("/nivel/{idnivel}", response_model=dict)
+def get_puentenivel(
+    idnivel: int,
+    skip: int = 0, 
+    limit: int = 100,
+    user: dict = verify_role(["admin", "usuario"])
+):
+    puentes = list(puentes_collection.find({"idnivel": idnivel}).skip(skip).limit(limit))
+
+    puentes_con_ids = [{**puente, "_id": str(puente["_id"])} for puente in puentes]
+
+    return {"data": puentes_con_ids}
