@@ -72,3 +72,32 @@ def delete_terminal(
         raise HTTPException(status_code=404, detail="Terminal no encontrado")
     terminales_collection.delete_one({"_id": ObjectId(id_terminal)})
     return terminal
+
+#obtener una terminal especifica a base del idnivel
+@router.get("/terminal/{idterminal}", response_model=dict)
+def get_terminal(
+    idterminal: int,
+    skip: int = 0, 
+    limit: int = 100,
+    user: dict = verify_role(["admin", "usuario"])
+):
+    terminalescodigo = list(terminales_collection.find({"idterminal": idterminal}).skip(skip).limit(limit))
+
+    terminalescodigo_con_ids = [{**terminalcodigo, "_id": str(terminalcodigo["_id"])} for terminalcodigo in terminalescodigo]
+
+    return {"data": terminalescodigo_con_ids}
+
+
+#obtener un terminalcodigo especifico a base del idterminal
+@router.get("/nivel/{idnivel}", response_model=dict)
+def get_terminal(
+    idnivel: int,
+    skip: int = 0, 
+    limit: int = 100,
+    user: dict = verify_role(["admin", "usuario"])
+):
+    terminales = list(terminales_collection.find({"idnivel": idnivel}).skip(skip).limit(limit))
+
+    terminales_con_ids = [{**terminal, "_id": str(terminal["_id"])} for terminal in terminales]
+
+    return {"data": terminales_con_ids}
